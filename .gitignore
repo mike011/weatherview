@@ -1,3 +1,7 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
 ## Android
 # Built application files
@@ -73,3 +77,5 @@ atlassian-ide-plugin.xml
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
 
+/build
+/captures

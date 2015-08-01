@@ -1,46 +1,34 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.joshskeen.weatherview"
-        minSdkVersion 19
-        targetSdkVersion 20
-        versionCode 1;
+        applicationId "weatherview.joshskeen.com.weatherview"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
         versionName "1.0"
-        buildConfigField "String", "WEATHERVIEW_API_KEY", "\"" + GRADLE_WEATHERVIEW_API_KEY + "\"";
+        buildConfigField "String", "WEATHERVIEW_API_KEY", "\"840dbdf2737a7ff9\"";
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    afterEvaluate {
-        tasks.findByName("assembleDebug").dependsOn("testDebugClasses")
-    }
-    apply plugin: 'android-unit-test'
 }
 
 dependencies {
-    repositories {
-        jcenter()
-        mavenLocal()
-        mavenCentral()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
-    }
+    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.squareup.retrofit:retrofit:1.7.1'
     compile 'com.squareup:dagger:0.9.1'
     provided 'com.squareup:dagger-compiler:0.9.1'
 
-    testCompile('org.robolectric:robolectric:2.4-SNAPSHOT')
+    testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.easytesting:fest:1.0.16'
     testCompile 'junit:junit:4.+'
     testCompile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'com.squareup:fest-android:1.0.8'
 }
-
