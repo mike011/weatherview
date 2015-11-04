@@ -13,10 +13,27 @@ android {
         buildConfigField "String", "WEATHERVIEW_API_KEY", "\"840dbdf2737a7ff9\"";
     }
     buildTypes {
+        def IP = InetAddress.localHost.hostAddress
+        def IPS = "\"" + IP + "\""
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField "String", "WIRE_MOCK_IP", IPS
+            buildConfigField "Integer", "WIRE_MOCK_PORT", "8080"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
 }
 
@@ -25,10 +42,34 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.7.1'
     compile 'com.squareup:dagger:0.9.1'
     provided 'com.squareup:dagger-compiler:0.9.1'
+    // use espresso
+    //    androidTestCompile('org.robolectric:robolectric:2.4') {
+    //        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    //    }
+    // androidTestCompile 'org.easytesting:fest:1.0.16'
+    //androidTestCompile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile files('libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar')
+    androidTestCompile files('libs/wiremock-android-1.50.jar')
 
-    testCompile 'org.robolectric:robolectric:2.4'
-    testCompile 'org.easytesting:fest:1.0.16'
-    testCompile 'junit:junit:4.+'
-    testCompile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'com.squareup:fest-android:1.0.8'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2'
+    androidTestCompile 'com.google.guava:guava:18.0'
+    androidTestCompile 'com.belladati:httpclientandroidlib:4.3.0'
+    androidTestCompile 'com.fasterxml.jackson.core:jackson-databind:2.5.0'
+    androidTestCompile 'com.jayway.jsonpath:json-path:0.9.0'
+    androidTestCompile('org.skyscreamer:jsonassert:1.1.1') {
+        exclude group: 'org.json', module: 'json'
+        exclude group: 'commons-collections', module: 'commons-collections'
+    }
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'log4j:log4j:1.2.17'
+    androidTestCompile 'org.mortbay.jetty:jetty:6.1.18'
+    androidTestCompile 'xmlunit:xmlunit:1.6'
+}
+
+configurations {
+    all*.exclude group: 'commons-logging', module: 'commons-logging'
+    all*.exclude group: 'com.android.support', module: 'support-annotations'
 }
