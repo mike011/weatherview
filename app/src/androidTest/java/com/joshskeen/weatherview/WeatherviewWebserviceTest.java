@@ -34,22 +34,21 @@ public class WeatherviewWebserviceTest extends
     public WeatherServiceManager mWeatherServiceManager;
 
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(Integer.valueOf(BuildConfig.WIRE_MOCK_PORT));
+    public WireMockRule wireMockRule = new WireMockRule(Integer.valueOf(BuildConfig.PORT));
 
     @Before
     @Override
     public void setUp() throws Exception
     {
         super.setUp();
-        //  Robolectric.getFakeHttpLayer().interceptHttpRequests(false);
-        String serviceEndpoint = "http://" + BuildConfig.WIRE_MOCK_IP + ":" + BuildConfig.WIRE_MOCK_PORT + "/api/" + BuildConfig.WEATHERVIEW_API_KEY + "/";
+        String serviceEndpoint = "http://" + BuildConfig.IP + ":" + BuildConfig.PORT + "/api/" + BuildConfig.WEATHERVIEW_API_KEY + "/";
         mWeatherServiceManager = new WeatherServiceManager(serviceEndpoint);
     }
 
     @Test
     public void testGetCurrentWeatherReturnsExpected()
     {
-        WireMock.configureFor(BuildConfig.WIRE_MOCK_IP, BuildConfig.WIRE_MOCK_PORT);
+        WireMock.configureFor(BuildConfig.IP, BuildConfig.PORT);
         stubFor(get(urlMatching("/api/.*"))
                 .atPriority(5)
                 .willReturn(aResponse()
@@ -57,7 +56,7 @@ public class WeatherviewWebserviceTest extends
                         .withBodyFile("atlanta-conditions.json")));
         assertNotNull("Weather Service Manager is null", mWeatherServiceManager);
         List<WeatherCondition> conditionsForAtlanta = mWeatherServiceManager.getConditionsForAtlanta();
-        //assertThat(conditionsForAtlanta.size()).isEqualTo(1);
+        assertEquals(1, conditionsForAtlanta.size());
     }
 
 }

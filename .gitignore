@@ -35,6 +35,7 @@ proguard/
 
 /*.iml
 app.iml
+*.iml
 
 ## Directory-based project format:
 .idea/

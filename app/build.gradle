@@ -20,8 +20,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String", "WIRE_MOCK_IP", IPS
-            buildConfigField "Integer", "WIRE_MOCK_PORT", "8080"
+            buildConfigField "String", "IP", IPS
+            buildConfigField "Integer", "PORT", "8080"
         }
     }
     compileOptions {
@@ -42,12 +42,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.7.1'
     compile 'com.squareup:dagger:0.9.1'
     provided 'com.squareup:dagger-compiler:0.9.1'
-    // use espresso
-    //    androidTestCompile('org.robolectric:robolectric:2.4') {
-    //        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    //    }
-    // androidTestCompile 'org.easytesting:fest:1.0.16'
-    //androidTestCompile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile files('libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar')
     androidTestCompile files('libs/wiremock-android-1.50.jar')
 

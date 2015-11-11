@@ -1,0 +1,1 @@
+java -jar app\libs\wiremock-1.57-standalone.jar --root-dir .\app\src\androidTest\resources\
