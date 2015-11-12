@@ -1,16 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 20
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "weatherview.joshskeen.com.weatherview"
-        minSdkVersion 15
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 8
+        targetSdkVersion 18
         buildConfigField "String", "WEATHERVIEW_API_KEY", "\"840dbdf2737a7ff9\"";
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         def IP = InetAddress.localHost.hostAddress
@@ -38,7 +37,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.squareup.retrofit:retrofit:1.7.1'
     compile 'com.squareup:dagger:0.9.1'
     provided 'com.squareup:dagger-compiler:0.9.1'

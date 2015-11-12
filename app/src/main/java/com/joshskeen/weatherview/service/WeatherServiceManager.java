@@ -6,30 +6,36 @@ import java.util.List;
 
 import retrofit.RestAdapter;
 
-public class WeatherServiceManager {
+public class WeatherServiceManager
+{
 
     private String mWeatherServiceEndpoint;
     private final WeatherServiceInterface mWeatherServiceInterface;
 
-    public WeatherServiceManager(String weatherServiceEndpoint) {
+    public WeatherServiceManager(String weatherServiceEndpoint)
+    {
         mWeatherServiceEndpoint = weatherServiceEndpoint;
         mWeatherServiceInterface = buildRestAdapter()
                 .create(WeatherServiceInterface.class);
     }
 
-    public List<WeatherCondition> getConditionsForAtlanta() {
-        return mWeatherServiceInterface.getConditions("Atlanta")
+    public List<WeatherCondition> getConditionsFor(String name)
+    {
+        return mWeatherServiceInterface.getConditions(name)
                 .getConditionsResponse()
                 .getWeatherConditions();
     }
 
-    private RestAdapter buildRestAdapter() {
+    private RestAdapter buildRestAdapter()
+    {
         return new RestAdapter.Builder()
                 .setEndpoint(mWeatherServiceEndpoint)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setLog(new RestAdapter.Log() {
+                .setLog(new RestAdapter.Log()
+                {
                     @Override
-                    public void log(String message) {
+                    public void log(String message)
+                    {
                         System.out.println("==>" + message);
                     }
                 })
